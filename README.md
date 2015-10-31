@@ -11,13 +11,17 @@ music when called.
     docker build -t musicbot .
     ```
 
+
 - run the image:
 
     ```
     docker run -e RESPOKE_APP_SECRET=your_application_secret \
-               musicbot
+               --net=host musicbot
     ```
+
 
 - fire up a web application that connects to the same app, and place a call
 to the `musicbot` endpointId
+
+
 - you should hear music play!
