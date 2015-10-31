@@ -1,0 +1,34 @@
+[general]
+type=general
+packet_logging=yes
+
+[transport]
+type=transport
+protocol=socket.io
+uri=https://api.respoke.io
+
+[app]
+type=app
+{% if RESPOKE_APP_SECRET is defined -%}
+app_secret={{ RESPOKE_APP_SECRET }}
+{%- else -%}
+app_secret=YOUR_APP_SECRET_REPLACE_ME
+{%- endif %}
+
+[endpoint_t](!)
+type=endpoint
+transport=transport
+app=app
+context=respoke
+disallow=all
+allow=ulaw
+allow=g722
+dtls_verify=fingerprint
+dtls_cert_file=/etc/asterisk/keys/respoke.pem
+dtls_setup=actpass
+turn=yes
+
+[anonymous](endpoint_t)
+register=no
+
+[musicbot](endpoint_t)
